@@ -1,10 +1,12 @@
 import React from "react";
-import Input from "./Input";
+
+import { useSelector } from "react-redux/es/hooks/useSelector";
 const Table = () => {
+  const data = useSelector((state) => state.detailsReducer);
+  console.log(data);
+
   return (
     <>
-     
-
       <div className="w-full py-4">
         <table className="min-w-full border border-gray-300 divide-y divide-gray-300">
           <thead>
@@ -23,14 +25,23 @@ const Table = () => {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-300">
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap"></td>
-              <td className="px-6 py-4 whitespace-nowrap"></td>
-              <td className="px-6 py-4 whitespace-nowrap"></td>
-              <td className="px-6 py-4 whitespace-nowrap"></td>
-            </tr>
-          </tbody>
+          { data.map((e)=>{
+            
+            return (
+              
+              <tbody className="bg-white divide-y divide-gray-300">
+              <tr>
+                <td className="px-6 py-4 whitespace-nowrap">{e.firstName}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{e.email}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{e.gender}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{e.mobile}</td>
+              </tr>
+            </tbody>
+            )
+          })
+
+      
+          }
         </table>
       </div>
     </>
