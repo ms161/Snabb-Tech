@@ -1,9 +1,21 @@
 import React from "react";
 
 import { useSelector } from "react-redux/es/hooks/useSelector";
-const Table = () => {
-  const data = useSelector((state) => state.detailsReducer);
-  console.log(data);
+const Table = (props) => {
+  let data = useSelector((state) => state.detailsReducer);
+  console.log(props.searchByName);
+  console.log(props.filterByGender);
+  if (props.searchByName) {
+    data = data.filter((item) =>
+      item.firstName.toLowerCase().includes(props.searchByName.toLowerCase())
+    );
+  }
+ if(props.filterByGender && props.filterByGender!=='all'){
+  data=data.filter((item)=>{
+   return item.gender===props.filterByGender
+  })
+ }
+ 
 
   return (
     <>
@@ -31,7 +43,7 @@ const Table = () => {
               
               <tbody className="bg-white divide-y divide-gray-300">
               <tr>
-                <td className="px-6 py-4 whitespace-nowrap">{e.firstName}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{e.firstName }</td>
                 <td className="px-6 py-4 whitespace-nowrap">{e.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{e.gender}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{e.mobile}</td>
